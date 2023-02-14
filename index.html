@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="header__title">Todo App</h1>
+    </header>
+    <main class="main" id="app">
+
+        <section class="todo-input">
+            <input class="todo-input__input" id="todo-input" type="text" placeholder="Get sh*t done!"
+                v-model="newTodo" />
+            <button class="todo-input__button button" id="add-button" v-on:click="addNewTodo">Add</button>
+        </section>
+
+        <section class="filter-and-options">
+            <h2>Filter & Options</h2>
+            <div class="radio-container" id="radio-container">
+                <input type="radio" name="filter" id="radio-all" value="all" class="radio-button" checked
+                    @click="currentFilter = ''" />
+                <label for="radio-all">All</label>
+                <input type="radio" name="filter" id="radio-open" value="open" class="radio-button"
+                    @click="currentFilter = 'open'" />
+                <label for="radio-open">Open</label>
+                <input type="radio" name="filter" id="radio-done" value="done" class="radio-button"
+                    @click="currentFilter = 'done'" />
+                <label for="radio-done">Done</label>
+
+            </div>
+            <button class="button" id="delete-button">Remove Done Todos</button>
+        </section>
+        {{currentFilter}}<br>
+        {{todos}}
+
+        <section class="todos">
+            <h2>Your Todos</h2>
+            {{agree}}
+            <ul id="todo-list" v-bind="styleTodoItemUl">
+                <li v-for="todo of filterElements()" v-bind="styleTodoItemLi">
+                    <input id="todo" type="checkbox" v-model="agree" v-once>
+                    <!-- <input id="todo" type="checkbox" v-bind="styleTodoItemCheckbox" v-bind:checked="agree"
+                        @click="isChecked" v-once> -->
+                    <label for="todo" v-bind="styleTodoItemLabel"
+                        :class="{'linethrough': linethrough}">{{todo.description}}</label>
+                </li>
+
+            </ul>
+
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
